@@ -39,5 +39,6 @@ dependencies {
 
 dhjar {
     jarFiles("appcompat","test")
-    cutFiles("androidx.appcompat.app.AppCompatActivity:onCreate")
+//    cutFiles("androidx.appcompat.app.AppCompatActivity:onCreate:getDelegate:onKeyDown")
+    cutFiles("com.vova.testlibrary.TestFile:getInt:getFloat:getDouble:getLong:getShort:getChar:getByte:getString")
 }

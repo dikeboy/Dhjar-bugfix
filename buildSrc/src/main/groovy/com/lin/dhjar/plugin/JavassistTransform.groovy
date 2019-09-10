@@ -32,7 +32,9 @@ public class JavassistTransform extends Transform {
 
     @Override
     public Set<? super QualifiedContent.Scope> getScopes() {
-        return TransformManager.SCOPE_FULL_PROJECT;
+        Set<QualifiedContent.Scope> sets = new HashSet<QualifiedContent.Scope>()
+        sets.add(QualifiedContent.Scope.EXTERNAL_LIBRARIES)
+        return sets;
     }
 
     @Override
@@ -73,6 +75,7 @@ public class JavassistTransform extends Transform {
                     mClassPool.appendClassPath(new JarClassPath(jarInput.getFile().getAbsolutePath()));
                 }
             }
+            System.out.println("class size==="+classSet.size());
             for (DirectoryInput directoryInput : classSet){
                 File dest = outputProvider.getContentLocation(directoryInput.getName(),
                         directoryInput.getContentTypes(), directoryInput.getScopes(),
@@ -99,7 +102,7 @@ public class JavassistTransform extends Transform {
                         jarInput.getContentTypes(), jarInput.getScopes(), Format.JAR);
                 if(isCut){
                     project.logger.error("============replace jar==="+fileName);
-                    project.logger.error("============replace dest==="+dest);
+                    project.logger.error("===========replace dest==="+dest);
                     JavassistInject.injectJar(jarInput.getFile(),dest, mClassPool,lJarConfig);
                 }else{
                     FileUtils.copyFile(jarInput.getFile(),dest)

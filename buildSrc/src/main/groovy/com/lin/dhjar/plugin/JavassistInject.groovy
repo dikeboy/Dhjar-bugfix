@@ -17,6 +17,7 @@ import java.util.zip.ZipOutputStream
 class JavassistInject {
     private static Map<String, Class> map = new HashMap<>()
 
+
     private static Class getAnnotationClass(String className, ClassPool mClassPool) {
         if (!map.containsKey(className)) {
             CtClass mCtClass = mClassPool.getCtClass(className)
@@ -136,6 +137,9 @@ class JavassistInject {
             int methodLen = ctMethod.getParameterTypes().length
             StringBuffer sb  = new StringBuffer()
             sb.append("{try{")
+            if(!ctMethod.getReturnType().getName().contains("void")){
+                sb.append("return ")
+            }
             sb.append(method2)
             sb.append("(")
             for(int i = 0; i<methodLen;i++){
@@ -144,7 +148,15 @@ class JavassistInject {
                     sb.append(",")
                 }
             }
-            sb.append(");}catch(Exception ex){ System.out.println(ex.toString());ex.printStackTrace();}}")
+            sb.append(");}catch(Exception ex){ System.out.println(ex.toString());ex.printStackTrace();}")
+            if(!ctMethod.getReturnType().getName().contains("void")){
+                sb.append("return ")
+                String result = getReturnValue(ctMethod.getReturnType().getName())
+                sb.append(result)
+                sb.append(";")
+            }
+            sb.append("}")
+           System.out.println("return type  =======" +ctMethod.getReturnType().getName())
             ctMethod.setBody(sb.toString())
         }
     }
@@ -153,4 +165,37 @@ class JavassistInject {
     }
 
 
+
+    static  String getReturnValue(String type){
+        String result = "null"
+        switch (type){
+            case "int":
+                result = "0"
+                break;
+            case "long":
+                result = "0l"
+                break;
+            case "double":
+                result = "0d"
+                break;
+            case "float":
+                result = "0f"
+                break;
+            case "boolean":
+                result = "true"
+                break;
+            case "char":
+                result = "\'a\'"
+                break;
+            case "short":
+                result = "0"
+                break;
+            case "byte":
+                result = "0"
+                break;
+            default:
+                break;
+        }
+        return result
+    }
 }
