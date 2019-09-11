@@ -1,4 +1,26 @@
 # Dhjar-bugfix
-Android  third jar wrap try catch
 
-Android捕获第三方插件 异常   实现在第三方jar中插入try catch
+## 简介
+
+Dhjar 是一款可以捕获第三方jar库异常的android gradle插件,通过配置实现在第三方jar方法上包裹try catch,主要是为了屏蔽一些对流程没影响的小错误
+
+##  怎么使用
+
+jcenter地址   https://bintray.com/dikeboy/dhjar/jarcatch
+
+在项目build.gradle 加入
+```python
+classpath 'com.lin.dhjar:dhjar:1.0.0
+```
+App build.gradle 
+```python
+apply plugin: "dhjarplugin"
+...
+...
+dhjar {
+    jarFiles("appcompat","test")
+    cutFiles("com.vova.testlibrary.TestFile:getInt:getFloat:getDouble:getLong:getShort:getChar:getByte:getString")
+}
+```
+jarFiles:需要拦截的三方库名称
+cutFiles:类和方法 "class:method:method","class:method:method" 分隔
