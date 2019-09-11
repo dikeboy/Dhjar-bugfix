@@ -24,3 +24,9 @@ dhjar {
 ```
 jarFiles:需要拦截的三方库名称
 cutFiles:类和方法 "class:method:method","class:method:method" 分隔
+
+
+### 参考
+* [Javassist 介绍](http://www.javassist.org/tutorial/tutorial.html)
+* [插件介绍](https://www.cnblogs.com/dikeboy/p/11505800.html)
+
