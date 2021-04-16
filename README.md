@@ -4,6 +4,8 @@
 
 Dhjar 是一款可以捕获第三方jar库异常的android gradle插件,通过配置实现在第三方jar方法上包裹try catch,主要是为了屏蔽一些对流程没影响的小错误
 
+本地导入方式参考[dhmethod](https://github.com/dikeboy/DhMethodTime)
+
 ##  怎么使用
 
 jcenter地址   https://bintray.com/dikeboy/dhjar/jarcatch
